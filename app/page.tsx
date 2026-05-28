@@ -41,7 +41,7 @@ function SvgIcon({ path, className = 'w-5 h-5' }: { path: string; className?: st
 
 export default function App() {
   const [page, setPage] = useState<Page>('home');
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState('light');
   const [lang, setLang] = useState<Lang>('en');
   const [menuOpen, setMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);

@@ -14,19 +14,7 @@ export const SupportPage: React.FC<Props> = ({ lang }) => {
         <p className="text-base-content/60 text-lg">{t(lang, 'supportSubtitle')}</p>
       </div>
 
-      <div className="card bg-gradient-to-br from-primary/10 to-secondary/10 border border-primary/20 mb-6 animate-fade-in-up animation-delay-100">
-        <div className="card-body items-center text-center p-8">
-          <p className="text-lg font-semibold mb-2">
-            {t(lang, 'builtBy')} <span className="text-primary text-xl font-bold">Ahmad Zia Naziry</span>
-          </p>
-          <div className="divider w-32 mx-auto"></div>
-          <p className="text-base-content/80 text-lg leading-relaxed max-w-lg italic">
-            &quot;{t(lang, 'prayerRequest')}&quot;
-          </p>
-        </div>
-      </div>
-
-      <div className="card bg-base-200 animate-fade-in-up animation-delay-200">
+      <div className="card bg-base-200 animate-fade-in-up animation-delay-100">
         <div className="card-body">
           <h3 className="text-xl font-bold mb-4 text-center flex items-center justify-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
