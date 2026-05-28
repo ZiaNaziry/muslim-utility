@@ -33,24 +33,6 @@ function getDayOfYear(): number {
   return Math.floor(diff / (1000 * 60 * 60 * 24));
 }
 
-const FEATURES: Record<Lang, { title: string; desc: string; svgPath: string }[]> = {
-  en: [
-    { title: 'Privacy First', desc: 'No tracking, no data collection', svgPath: 'M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z' },
-    { title: 'Multilingual', desc: 'English, Arabic & Farsi support', svgPath: 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z' },
-    { title: 'Mobile Friendly', desc: 'Works perfectly on any device', svgPath: 'M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z' },
-  ],
-  ar: [
-    { title: 'الخصوصية أولاً', desc: 'لا تتبع، لا جمع بيانات', svgPath: 'M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z' },
-    { title: 'متعدد اللغات', desc: 'دعم الإنجليزية والعربية والفارسية', svgPath: 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z' },
-    { title: 'متوافق مع الجوال', desc: 'يعمل بشكل مثالي على أي جهاز', svgPath: 'M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z' },
-  ],
-  fa: [
-    { title: 'حریم خصوصی', desc: 'بدون ردیابی، بدون جمع‌آوری داده', svgPath: 'M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z' },
-    { title: 'چند زبانه', desc: 'پشتیبانی از انگلیسی، عربی و فارسی', svgPath: 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z' },
-    { title: 'سازگار با موبایل', desc: 'روی هر دستگاهی کار می‌کند', svgPath: 'M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z' },
-  ],
-};
-
 const FALLBACK_QUOTES: Record<Lang, { text: string; source: string }[]> = {
   en: [
     { text: 'Indeed, with hardship comes ease.', source: 'Quran 94:6' },
@@ -62,22 +44,22 @@ const FALLBACK_QUOTES: Record<Lang, { text: string; source: string }[]> = {
     { text: 'My mercy encompasses all things.', source: 'Quran 7:156' },
   ],
   ar: [
-    { text: 'إِنَّ مَعَ الْعُسْرِ يُسْرًا', source: 'القرآن ٩٤:٦' },
-    { text: 'وَمَن يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ', source: 'القرآن ٦٥:٣' },
-    { text: 'فَاذْكُرُونِي أَذْكُرْكُمْ', source: 'القرآن ٢:١٥٢' },
-    { text: 'لَا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا', source: 'القرآن ٢:٢٨٦' },
-    { text: 'فَاصْبِرْ إِنَّ وَعْدَ اللَّهِ حَقٌّ', source: 'القرآن ٣٠:٦٠' },
-    { text: 'وَوَجَدَكَ ضَالًّا فَهَدَىٰ', source: 'القرآن ٩٣:٧' },
-    { text: 'وَرَحْمَتِي وَسِعَتْ كُلَّ شَيْءٍ', source: 'القرآن ٧:١٥٦' },
+    { text: '\u0625\u0650\u0646\u0651\u064e \u0645\u064e\u0639\u064e \u0627\u0644\u0652\u0639\u064f\u0633\u0652\u0631\u0650 \u064a\u064f\u0633\u0652\u0631\u064b\u0627', source: '\u0627\u0644\u0642\u0631\u0622\u0646 \u0669\u0664:\u0666' },
+    { text: '\u0648\u064e\u0645\u064e\u0646 \u064a\u064e\u062a\u064e\u0648\u064e\u0643\u0651\u064e\u0644\u0652 \u0639\u064e\u0644\u064e\u0649 \u0627\u0644\u0644\u0651\u064e\u0647\u0650 \u0641\u064e\u0647\u064f\u0648\u064e \u062d\u064e\u0633\u0652\u0628\u064f\u0647\u064f', source: '\u0627\u0644\u0642\u0631\u0622\u0646 \u0666\u0665:\u0663' },
+    { text: '\u0641\u064e\u0627\u0630\u0652\u0643\u064f\u0631\u064f\u0648\u0646\u0650\u064a \u0623\u064e\u0630\u0652\u0643\u064f\u0631\u0652\u0643\u064f\u0645\u0652', source: '\u0627\u0644\u0642\u0631\u0622\u0646 \u0662:\u0661\u0665\u0662' },
+    { text: '\u0644\u064e\u0627 \u064a\u064f\u0643\u064e\u0644\u0651\u0650\u0641\u064f \u0627\u0644\u0644\u0651\u064e\u0647\u064f \u0646\u064e\u0641\u0652\u0633\u064b\u0627 \u0625\u0650\u0644\u0651\u064e\u0627 \u0648\u064f\u0633\u0652\u0639\u064e\u0647\u064e\u0627', source: '\u0627\u0644\u0642\u0631\u0622\u0646 \u0662:\u0662\u0668\u0666' },
+    { text: '\u0641\u064e\u0627\u0635\u0652\u0628\u0650\u0631\u0652 \u0625\u0650\u0646\u0651\u064e \u0648\u064e\u0639\u0652\u062f\u064e \u0627\u0644\u0644\u0651\u064e\u0647\u0650 \u062d\u064e\u0642\u0651\u064c', source: '\u0627\u0644\u0642\u0631\u0622\u0646 \u0663\u0660:\u0666\u0660' },
+    { text: '\u0648\u064e\u0648\u064e\u062c\u064e\u062f\u064e\u0643\u064e \u0636\u064e\u0627\u0644\u0651\u064b\u0627 \u0641\u064e\u0647\u064e\u062f\u064e\u0649\u0670', source: '\u0627\u0644\u0642\u0631\u0622\u0646 \u0669\u0663:\u0667' },
+    { text: '\u0648\u064e\u0631\u064e\u062d\u0652\u0645\u064e\u062a\u0650\u064a \u0648\u064e\u0633\u0650\u0639\u064e\u062a\u0652 \u0643\u064f\u0644\u0651\u064e \u0634\u064e\u064a\u0652\u0621\u064d', source: '\u0627\u0644\u0642\u0631\u0622\u0646 \u0667:\u0661\u0665\u0666' },
   ],
   fa: [
-    { text: 'همانا با سختی آسانی است', source: 'قرآن ۹۴:۶' },
-    { text: 'و هر کس بر خدا توکل کند، خدا او را کافی است', source: 'قرآن ۶۵:۳' },
-    { text: 'پس مرا یاد کنید تا شما را یاد کنم', source: 'قرآن ۲:۱۵۲' },
-    { text: 'خداوند هیچ کس را بیش از توانش تکلیف نمی‌کند', source: 'قرآن ۲:۲۸۶' },
-    { text: 'صبر کن که وعده خدا حق است', source: 'قرآن ۳۰:۶۰' },
-    { text: 'و تو را گمراه یافت پس هدایتت کرد', source: 'قرآن ۹۳:۷' },
-    { text: 'و رحمت من همه چیز را فرا گرفته است', source: 'قرآن ۷:۱۵۶' },
+    { text: '\u0647\u0645\u0627\u0646\u0627 \u0628\u0627 \u0633\u062e\u062a\u06cc \u0622\u0633\u0627\u0646\u06cc \u0627\u0633\u062a', source: '\u0642\u0631\u0622\u0646 \u06f9\u06f4:\u06f6' },
+    { text: '\u0648 \u0647\u0631 \u06a9\u0633 \u0628\u0631 \u062e\u062f\u0627 \u062a\u0648\u06a9\u0644 \u06a9\u0646\u062f\u060c \u062e\u062f\u0627 \u0627\u0648 \u0631\u0627 \u06a9\u0627\u0641\u06cc \u0627\u0633\u062a', source: '\u0642\u0631\u0622\u0646 \u06f6\u06f5:\u06f3' },
+    { text: '\u067e\u0633 \u0645\u0631\u0627 \u06cc\u0627\u062f \u06a9\u0646\u06cc\u062f \u062a\u0627 \u0634\u0645\u0627 \u0631\u0627 \u06cc\u0627\u062f \u06a9\u0646\u0645', source: '\u0642\u0631\u0622\u0646 \u06f2:\u06f1\u06f5\u06f2' },
+    { text: '\u062e\u062f\u0627\u0648\u0646\u062f \u0647\u06cc\u0686 \u06a9\u0633 \u0631\u0627 \u0628\u06cc\u0634 \u0627\u0632 \u062a\u0648\u0627\u0646\u0634 \u062a\u06a9\u0644\u06cc\u0641 \u0646\u0645\u06cc\u200c\u06a9\u0646\u062f', source: '\u0642\u0631\u0622\u0646 \u06f2:\u06f2\u06f8\u06f6' },
+    { text: '\u0635\u0628\u0631 \u06a9\u0646 \u06a9\u0647 \u0648\u0639\u062f\u0647 \u062e\u062f\u0627 \u062d\u0642 \u0627\u0633\u062a', source: '\u0642\u0631\u0622\u0646 \u06f3\u06f0:\u06f6\u06f0' },
+    { text: '\u0648 \u062a\u0648 \u0631\u0627 \u06af\u0645\u0631\u0627\u0647 \u06cc\u0627\u0641\u062a \u067e\u0633 \u0647\u062f\u0627\u06cc\u062a\u062a \u06a9\u0631\u062f', source: '\u0642\u0631\u0622\u0646 \u06f9\u06f3:\u06f7' },
+    { text: '\u0648 \u0631\u062d\u0645\u062a \u0645\u0646 \u0647\u0645\u0647 \u0686\u06cc\u0632 \u0631\u0627 \u0641\u0631\u0627 \u06af\u0631\u0641\u062a\u0647 \u0627\u0633\u062a', source: '\u0642\u0631\u0622\u0646 \u06f7:\u06f1\u06f5\u06f6' },
   ],
 };
 
@@ -88,7 +70,6 @@ export const HomePage: React.FC<HomePageProps> = ({ lang, onNavigate }) => {
 
   const quoteIdx = new Date().getDate() % FALLBACK_QUOTES[lang].length;
   const quote = FALLBACK_QUOTES[lang][quoteIdx];
-  const features = FEATURES[lang];
 
   useEffect(() => {
     const ayahNumber = (getDayOfYear() % 6236) + 1;
@@ -107,62 +88,39 @@ export const HomePage: React.FC<HomePageProps> = ({ lang, onNavigate }) => {
 
   return (
     <div dir={dir}>
-      {/* Hero */}
+      {/* Hero - slim, just title and subtitle */}
       <div className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-base-100 to-secondary/5">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-10 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl"></div>
           <div className="absolute bottom-10 right-10 w-96 h-96 bg-secondary/5 rounded-full blur-3xl"></div>
         </div>
-        <div className="relative text-center py-12 md:py-20 px-4 max-w-4xl mx-auto">
+        <div className="relative text-center py-10 md:py-16 px-4 max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-6xl font-extrabold mb-3 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent leading-tight animate-fade-in-up">
             {t(lang, 'homeTitle')}
           </h1>
           <p className="text-xl md:text-2xl font-bold text-base-content/90 mb-2 animate-fade-in-up animation-delay-100">
-            بسم الله الرحمن الرحيم
+            {'\u0628\u0633\u0645 \u0627\u0644\u0644\u0647 \u0627\u0644\u0631\u062d\u0645\u0646 \u0627\u0644\u0631\u062d\u064a\u0645'}
           </p>
-          <p className="text-base-content/60 text-lg max-w-xl mx-auto mb-8 animate-fade-in-up animation-delay-200">
+          <p className="text-base-content/60 text-lg max-w-xl mx-auto animate-fade-in-up animation-delay-200">
             {t(lang, 'homeSubtitle')}
           </p>
-
-          {/* Daily Verse */}
-          <div className="max-w-lg mx-auto bg-base-200/60 backdrop-blur-sm rounded-2xl p-6 border border-base-300/50 animate-fade-in-up animation-delay-300 hover:border-primary/30 transition-colors duration-300">
-            <div className="flex items-center justify-center gap-2 mb-3">
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-              </svg>
-              <p className="text-sm font-medium text-primary">{t(lang, 'dailyReminder')}</p>
-            </div>
-            {verseLoading ? (
-              <div className="flex justify-center py-4"><span className="loading loading-dots loading-md text-primary"></span></div>
-            ) : dailyVerse ? (
-              <>
-                <p className="text-lg font-semibold text-base-content leading-relaxed mb-2" dir="rtl">{dailyVerse.arabic}</p>
-                <p className="text-base text-base-content/80 leading-relaxed italic">&quot;{dailyVerse.english}&quot;</p>
-                <p className="text-sm text-base-content/50 mt-2">— {dailyVerse.surahName} ({dailyVerse.surahNumber}:{dailyVerse.ayahInSurah})</p>
-              </>
-            ) : (
-              <>
-                <p className="text-lg font-semibold text-base-content leading-relaxed italic">&quot;{quote.text}&quot;</p>
-                <p className="text-sm text-base-content/50 mt-2">— {quote.source}</p>
-              </>
-            )}
-          </div>
         </div>
       </div>
 
-      {/* Tools */}
+      {/* Tools Grid - NOW ON TOP */}
       <div className="max-w-5xl mx-auto px-4 py-10">
         <div className="text-center mb-8 animate-fade-in-up">
           <h2 className="text-2xl md:text-3xl font-bold mb-2">{t(lang, 'ourTools')}</h2>
           <p className="text-base-content/60">{t(lang, 'homeDesc')}</p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 mb-16">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 mb-12">
           {TOOL_CARDS.map((tool, i) => (
             <button
               key={tool.page}
               onClick={() => onNavigate(tool.page)}
-              className={`group card bg-base-200 hover:shadow-xl hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 cursor-pointer border border-base-300 hover:border-primary/30 animate-fade-in-up animation-delay-${(i + 1) * 100}`}
+              className={`group card bg-base-200 hover:shadow-xl hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 cursor-pointer border border-base-300 hover:border-primary/30 animate-fade-in-up`}
+              style={{ animationDelay: `${(i + 1) * 100}ms` }}
             >
               <div className={`card-body items-center text-center bg-gradient-to-br ${tool.color} rounded-2xl p-4 sm:p-6`}>
                 <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-base-100/50 flex items-center justify-center mb-2 sm:mb-3 group-hover:scale-110 group-hover:bg-primary/10 transition-all duration-300">
@@ -185,24 +143,28 @@ export const HomePage: React.FC<HomePageProps> = ({ lang, onNavigate }) => {
           ))}
         </div>
 
-        {/* Features */}
-        <div className="mb-16 animate-fade-in-up">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold mb-2">{t(lang, 'whyUs')}</h2>
+        {/* Daily Reminder - NOW AT BOTTOM */}
+        <div className="max-w-2xl mx-auto bg-base-200/60 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-base-300/50 animate-fade-in-up hover:border-primary/30 transition-colors duration-300">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+            <p className="text-base font-semibold text-primary">{t(lang, 'dailyReminder')}</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {features.map((f, i) => (
-              <div key={i} className={`text-center p-6 bg-base-200 rounded-2xl border border-base-300 hover:border-primary/20 transition-all duration-300 hover:shadow-lg animate-fade-in-up animation-delay-${(i + 1) * 100}`}>
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d={f.svgPath} />
-                  </svg>
-                </div>
-                <h4 className="font-bold text-sm mb-1">{f.title}</h4>
-                <p className="text-xs text-base-content/60">{f.desc}</p>
-              </div>
-            ))}
-          </div>
+          {verseLoading ? (
+            <div className="flex justify-center py-4"><span className="loading loading-dots loading-md text-primary"></span></div>
+          ) : dailyVerse ? (
+            <>
+              <p className="text-xl font-semibold text-base-content leading-relaxed mb-3 text-center" dir="rtl">{dailyVerse.arabic}</p>
+              <p className="text-base text-base-content/80 leading-relaxed italic text-center">&quot;{dailyVerse.english}&quot;</p>
+              <p className="text-sm text-base-content/50 mt-3 text-center">— {dailyVerse.surahName} ({dailyVerse.surahNumber}:{dailyVerse.ayahInSurah})</p>
+            </>
+          ) : (
+            <>
+              <p className="text-xl font-semibold text-base-content leading-relaxed italic text-center">&quot;{quote.text}&quot;</p>
+              <p className="text-sm text-base-content/50 mt-3 text-center">— {quote.source}</p>
+            </>
+          )}
         </div>
       </div>
     </div>

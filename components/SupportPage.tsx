@@ -74,7 +74,7 @@ export const SupportPage: React.FC<Props> = ({ lang }) => {
       </div>
 
       <div className="text-center mt-8 text-base-content/40 text-sm animate-fade-in">
-        <p>{t(lang, 'madeWith')} {t(lang, 'by')} <span className="font-semibold">Ahmad Zia Naziry</span></p>
+        <p>{t(lang, 'builtBy')} <span className="font-semibold">Ahmad Zia Naziry</span></p>
       </div>
     </div>
   );
