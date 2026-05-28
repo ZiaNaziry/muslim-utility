@@ -114,15 +114,15 @@ export const HomePage: React.FC<HomePageProps> = ({ lang, onNavigate }) => {
           <p className="text-base-content/60">{t(lang, 'homeDesc')}</p>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 mb-12">
+        <div className="grid gap-3 sm:gap-5 mb-12" style={{ gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' }}>
           {TOOL_CARDS.map((tool, i) => (
             <button
               key={tool.page}
               onClick={() => onNavigate(tool.page)}
-              className={`group card bg-base-200 hover:shadow-xl hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 cursor-pointer border border-base-300 hover:border-primary/30 animate-fade-in-up h-full`}
+              className={`group bg-base-200 rounded-2xl hover:shadow-xl hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 cursor-pointer border border-base-300 hover:border-primary/30 animate-fade-in-up overflow-hidden`}
               style={{ animationDelay: `${(i + 1) * 100}ms` }}
             >
-              <div className={`card-body items-center text-center justify-center bg-gradient-to-br ${tool.color} rounded-2xl p-4 sm:p-6`}>
+              <div className={`flex flex-col items-center text-center justify-center bg-gradient-to-br ${tool.color} p-4 sm:p-6 min-h-[180px] sm:min-h-[220px]`}>
                 <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-base-100/50 flex items-center justify-center mb-2 sm:mb-3 group-hover:scale-110 group-hover:bg-primary/10 transition-all duration-300">
                   <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 sm:w-7 sm:h-7 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d={tool.svgPath} />
