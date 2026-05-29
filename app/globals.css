@@ -27,6 +27,30 @@
     0%, 100% { box-shadow: 0 0 0 0 rgba(var(--p), 0.2); }
     50% { box-shadow: 0 0 20px 4px rgba(var(--p), 0.15); }
   }
+  @keyframes float1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(60px, 40px) scale(1.1); }
+    50% { transform: translate(20px, 80px) scale(0.95); }
+    75% { transform: translate(-40px, 30px) scale(1.05); }
+  }
+  @keyframes float2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(-50px, -30px) scale(1.05); }
+    50% { transform: translate(-20px, -60px) scale(1.1); }
+    75% { transform: translate(30px, -20px) scale(0.95); }
+  }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  @keyframes dropdown {
+    from { opacity: 0; transform: translateY(-8px) scale(0.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
   .animate-fade-in-up {
     animation: fadeInUp 0.6s ease-out both;
   }
@@ -40,10 +64,16 @@
     animation: slideInRight 0.6s ease-out both;
   }
   .animate-scale-in {
-    animation: scaleIn 0.5s ease-out both;
+    animation: scaleIn 0.3s ease-out both;
   }
   .animate-pulse-glow {
     animation: pulse-glow 3s ease-in-out infinite;
+  }
+  .animate-slide-down {
+    animation: slideDown 0.5s ease both;
+  }
+  .animate-dropdown {
+    animation: dropdown 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .animation-delay-100 { animation-delay: 100ms; }
   .animation-delay-200 { animation-delay: 200ms; }
@@ -60,4 +90,16 @@ html { scroll-behavior: smooth; }
 @media (max-width: 640px) {
   .btn { min-height: 2.75rem; }
   .input, .select, .textarea { min-height: 2.75rem; }
+}
+
+/* Smooth scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: oklch(var(--b3)); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: oklch(var(--bc) / 0.3); }
+
+/* Glass effect for navbar */
+.glass-nav {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }

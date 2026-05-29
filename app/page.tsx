@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { HomePage } from '../components/HomePage';
 import { ZakatCalculator } from '../components/ZakatCalculator';
 import { PrayerTimes } from '../components/PrayerTimes';
@@ -46,8 +46,87 @@ export default function App() {
   const [themeOpen, setThemeOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const particlesRef = useRef<HTMLCanvasElement>(null);
+  const langRef = useRef<HTMLDivElement>(null);
+  const themeRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => setMounted(true), []);
+
+  // Close dropdowns on outside click
+  useEffect(function () {
+    function handleClick(e: MouseEvent) {
+      if (langRef.current && !langRef.current.contains(e.target as Node)) {
+        setLangOpen(false);
+      }
+      if (themeRef.current && !themeRef.current.contains(e.target as Node)) {
+        setThemeOpen(false);
+      }
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setMenuOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClick);
+    return function () { document.removeEventListener("mousedown", handleClick); };
+  }, []);
+
+  // Floating particles animation (same as Portal)
+  useEffect(function () {
+    const canvas = particlesRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let animId = 0;
+    const particles: { x: number; y: number; vx: number; vy: number; r: number; o: number }[] = [];
+
+    function resize() {
+      if (!canvas) return;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener("resize", resize);
+
+    for (let i = 0; i < 40; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        r: Math.random() * 2.5 + 1,
+        o: Math.random() * 0.3 + 0.05,
+      });
+    }
+
+    function draw() {
+      if (!ctx || !canvas) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Use theme-appropriate color for particles
+      const isDark = document.documentElement.getAttribute("data-theme") !== "light";
+      const particleColor = isDark ? "255, 255, 255" : "0, 0, 0";
+      for (let j = 0; j < particles.length; j++) {
+        const p = particles[j];
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height;
+        if (p.y > canvas.height) p.y = 0;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(" + particleColor + ", " + p.o + ")";
+        ctx.fill();
+      }
+      animId = requestAnimationFrame(draw);
+    }
+    draw();
+
+    return function () {
+      cancelAnimationFrame(animId);
+      window.removeEventListener("resize", resize);
+    };
+  }, [theme]);
 
   const dir = lang === 'en' ? 'ltr' : 'rtl';
 
@@ -86,10 +165,19 @@ export default function App() {
 
   return (
     <div data-theme={theme} dir={dir} className={`min-h-screen bg-base-100 text-base-content flex flex-col transition-colors duration-300 ${mounted ? '' : 'opacity-0'}`}>
+      {/* Floating particles canvas */}
+      <canvas ref={particlesRef} className="fixed inset-0 pointer-events-none z-0" style={{ opacity: 0.6 }} />
+
+      {/* Floating orbs (background decoration) */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-primary/5 blur-3xl" style={{ animation: 'float1 20s ease-in-out infinite' }} />
+        <div className="absolute bottom-1/3 right-1/4 w-80 h-80 rounded-full bg-secondary/5 blur-3xl" style={{ animation: 'float2 25s ease-in-out infinite' }} />
+      </div>
+
       {/* Navbar */}
-      <div className="navbar bg-base-200/80 backdrop-blur-md shadow-lg sticky top-0 z-50 px-4 border-b border-base-300/50">
+      <div className="navbar bg-base-200/80 glass-nav shadow-lg sticky top-0 z-50 px-4 border-b border-base-300/50">
         <div className="navbar-start">
-          <div className="relative">
+          <div className="relative" ref={menuRef}>
             <button
               className="btn btn-ghost lg:hidden"
               onClick={() => { setMenuOpen(!menuOpen); setThemeOpen(false); setLangOpen(false); }}
@@ -139,7 +227,7 @@ export default function App() {
 
         <div className="navbar-end gap-2">
           {/* Language Switcher */}
-          <div className="relative">
+          <div className="relative" ref={langRef}>
             <button
               onClick={() => { setLangOpen(!langOpen); setThemeOpen(false); setMenuOpen(false); }}
               className="btn btn-ghost btn-sm gap-1.5"
@@ -152,7 +240,7 @@ export default function App() {
               <span className="hidden sm:inline text-xs font-semibold">{langLabel}</span>
             </button>
             {langOpen && (
-              <div className="absolute right-0 top-full mt-2 z-[100] py-2 w-40 shadow-xl bg-base-200 rounded-xl border border-base-300 animate-scale-in">
+              <div className="absolute right-0 top-full mt-2 z-[100] py-2 w-40 shadow-xl bg-base-200 rounded-xl border border-base-300 animate-dropdown">
                 {LANGS.map((l) => (
                   <button
                     key={l.code}
@@ -167,7 +255,7 @@ export default function App() {
           </div>
 
           {/* Theme Switcher */}
-          <div className="relative">
+          <div className="relative" ref={themeRef}>
             <button
               onClick={() => { setThemeOpen(!themeOpen); setLangOpen(false); setMenuOpen(false); }}
               className="btn btn-ghost btn-sm btn-square"
@@ -181,7 +269,7 @@ export default function App() {
               </svg>
             </button>
             {themeOpen && (
-              <div className="absolute right-0 top-full mt-2 z-[100] py-2 w-44 shadow-xl bg-base-200 rounded-xl border border-base-300 animate-scale-in">
+              <div className="absolute right-0 top-full mt-2 z-[100] py-2 w-44 shadow-xl bg-base-200 rounded-xl border border-base-300 animate-dropdown">
                 {THEMES.map((th) => (
                   <button
                     key={th.id}
@@ -198,18 +286,13 @@ export default function App() {
         </div>
       </div>
 
-      {/* Click outside to close dropdowns */}
-      {(themeOpen || langOpen || menuOpen) && (
-        <div className="fixed inset-0 z-40" onClick={() => { setThemeOpen(false); setLangOpen(false); setMenuOpen(false); }} />
-      )}
-
       {/* Content */}
-      <main className="flex-1 pb-20 lg:pb-0">
+      <main className="flex-1 pb-20 lg:pb-0 relative z-10">
         {renderPage()}
       </main>
 
       {/* Mobile Bottom Navigation */}
-      <div className="btm-nav btm-nav-sm lg:hidden bg-base-200/90 backdrop-blur-md border-t border-base-300/50 z-50">
+      <div className="btm-nav btm-nav-sm lg:hidden bg-base-200/90 glass-nav border-t border-base-300/50 z-50">
         {MOBILE_NAV.map((p) => {
           const item = NAV_ITEMS.find(n => n.page === p)!;
           return (
@@ -226,7 +309,7 @@ export default function App() {
       </div>
 
       {/* Footer — hidden on mobile (bottom nav replaces it) */}
-      <footer className="hidden lg:block bg-base-200 border-t border-base-300">
+      <footer className="hidden lg:block bg-base-200/80 glass-nav border-t border-base-300/50 relative z-10">
         <div className="max-w-5xl mx-auto px-6 py-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-6">
             <div>

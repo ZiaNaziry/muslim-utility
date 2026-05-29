@@ -88,39 +88,39 @@ export const HomePage: React.FC<HomePageProps> = ({ lang, onNavigate }) => {
 
   return (
     <div dir={dir}>
-      {/* Hero - slim, just title and subtitle */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-base-100 to-secondary/5">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-10 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-10 right-10 w-96 h-96 bg-secondary/5 rounded-full blur-3xl"></div>
-        </div>
-        <div className="relative text-center py-10 md:py-16 px-4 max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-6xl font-extrabold mb-3 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent leading-tight animate-fade-in-up">
+      {/* Hero */}
+      <div className="relative overflow-hidden">
+        <div className="absolute inset-0 opacity-30" style={{ background: 'radial-gradient(ellipse at 50% 0%, oklch(var(--p) / 0.3), transparent 70%)' }} />
+        <div className="relative text-center py-12 md:py-20 px-4 max-w-4xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-6 bg-primary/10 text-primary animate-slide-down">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            {t(lang, 'homeSubtitle')}
+          </div>
+          <h1 className="text-4xl md:text-6xl font-extrabold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent leading-tight animate-fade-in-up">
             {t(lang, 'homeTitle')}
           </h1>
           <p className="text-xl md:text-2xl font-bold text-base-content/90 mb-2 animate-fade-in-up animation-delay-100">
             {'\u0628\u0633\u0645 \u0627\u0644\u0644\u0647 \u0627\u0644\u0631\u062d\u0645\u0646 \u0627\u0644\u0631\u062d\u064a\u0645'}
           </p>
           <p className="text-base-content/60 text-lg max-w-xl mx-auto animate-fade-in-up animation-delay-200">
-            {t(lang, 'homeSubtitle')}
+            {t(lang, 'homeDesc')}
           </p>
         </div>
       </div>
 
-      {/* Tools Grid - NOW ON TOP */}
+      {/* Tools Grid */}
       <div className="max-w-5xl mx-auto px-4 py-10">
         <div className="text-center mb-8 animate-fade-in-up">
           <h2 className="text-2xl md:text-3xl font-bold mb-2">{t(lang, 'ourTools')}</h2>
-          <p className="text-base-content/60">{t(lang, 'homeDesc')}</p>
         </div>
 
-        <div className="grid gap-3 sm:gap-5 mb-12" style={{ gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' }}>
+        <div className="grid gap-4 sm:gap-5 mb-12" style={{ gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' }}>
           {TOOL_CARDS.map((tool, i) => (
             <button
               key={tool.page}
               onClick={() => onNavigate(tool.page)}
-              className={`group bg-base-200 rounded-2xl hover:shadow-xl hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 cursor-pointer border border-base-300 hover:border-primary/30 animate-fade-in-up overflow-hidden`}
-              style={{ animationDelay: `${(i + 1) * 100}ms` }}
+              className="group rounded-2xl border border-base-300/50 hover:border-primary/30 transition-all duration-300 cursor-pointer hover:shadow-2xl hover:translate-y-[-4px] active:scale-[0.98] animate-fade-in-up overflow-hidden"
+              style={{ animationDelay: `${(i + 1) * 100}ms`, background: 'oklch(var(--b2) / 0.8)' }}
             >
               <div className={`flex flex-col items-center text-center justify-center bg-gradient-to-br ${tool.color} p-4 sm:p-6 min-h-[180px] sm:min-h-[220px]`}>
                 <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-base-100/50 flex items-center justify-center mb-2 sm:mb-3 group-hover:scale-110 group-hover:bg-primary/10 transition-all duration-300">
@@ -143,8 +143,8 @@ export const HomePage: React.FC<HomePageProps> = ({ lang, onNavigate }) => {
           ))}
         </div>
 
-        {/* Daily Reminder - NOW AT BOTTOM */}
-        <div className="max-w-2xl mx-auto bg-base-200/60 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-base-300/50 animate-fade-in-up hover:border-primary/30 transition-colors duration-300">
+        {/* Daily Reminder */}
+        <div className="max-w-2xl mx-auto rounded-2xl p-6 md:p-8 border border-base-300/50 animate-fade-in-up hover:border-primary/30 transition-all duration-300 hover:shadow-xl" style={{ background: 'oklch(var(--b2) / 0.6)', backdropFilter: 'blur(8px)' }}>
           <div className="flex items-center justify-center gap-2 mb-4">
             <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
