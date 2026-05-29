@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: 'Muslim Utilities — Free Tools for Every Muslim',
   description: 'Your all-in-one Islamic companion. Zakat Calculator, Prayer Times, Dhikr Counter, Hijri Converter, Qibla Finder — free, private, multilingual.',
   verification: {
-    google: 'jf5jAp_OdxS-JIjAijc1YirI3zAAXe4DI0zZW8LsnB0',
+    google: 'V76HNLMiHxYovQk5dt_s91hUZTE-hZyLl6E_hNIsJA8',
   },
 };
 
@@ -15,7 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <head>
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-3BFMDRQV93"
+          src="https://www.googletagmanager.com/gtag/js?id=G-6PK87EWQR0"
           strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
@@ -23,7 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-3BFMDRQV93');
+            gtag('config', 'G-6PK87EWQR0');
           `}
         </Script>
       </head>

@@ -13,9 +13,9 @@ import { Lang, LANGS, t } from '../lib/i18n';
 type Page = 'home' | 'zakat' | 'prayer' | 'dhikr' | 'hijri' | 'qibla' | 'support';
 
 const THEMES = [
-  { id: 'dark', label: 'Dark', icon: 'M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z' },
-  { id: 'light', label: 'Light', icon: 'M12 3v1m0 16v1m8.66-13.66l-.71.71M4.05 19.95l-.71.71M21 12h1M2 12H1m16.95 7.95l-.71-.71M4.76 4.76l-.71-.71M16 12a4 4 0 11-8 0 4 4 0 018 0z' },
-  { id: 'emerald', label: 'Emerald', icon: 'M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 13a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM15 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2h-2z' },
+  { id: 'light', label: 'Light', icon: 'M12 3v1m0 16v1m8.66-13.66l-.71.71M4.05 19.95l-.71.71M21 12h1M2 12H1m16.95 7.95l-.71-.71M4.76 4.76l-.71-.71M16 12a4 4 0 11-8 0 4 4 0 018 0z', color: '#4f46e5' },
+  { id: 'dark', label: 'Dark', icon: 'M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z', color: '#6366f1' },
+  { id: 'emerald', label: 'Emerald', icon: 'M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 13a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM15 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2h-2z', color: '#10b981' },
 ];
 
 const NAV_ITEMS: { page: Page; labelKey: string; svgPath: string }[] = [
@@ -28,7 +28,6 @@ const NAV_ITEMS: { page: Page; labelKey: string; svgPath: string }[] = [
   { page: 'support', labelKey: 'support', svgPath: 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z' },
 ];
 
-// Bottom nav shows only 5 items on mobile
 const MOBILE_NAV: Page[] = ['home', 'zakat', 'prayer', 'dhikr', 'support'];
 
 function SvgIcon({ path, className = 'w-5 h-5' }: { path: string; className?: string }) {
@@ -44,6 +43,8 @@ export default function App() {
   const [theme, setTheme] = useState('light');
   const [lang, setLang] = useState<Lang>('en');
   const [menuOpen, setMenuOpen] = useState(false);
+  const [themeOpen, setThemeOpen] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => setMounted(true), []);
@@ -53,7 +54,19 @@ export default function App() {
   const navigateTo = (p: Page) => {
     setPage(p);
     setMenuOpen(false);
+    setThemeOpen(false);
+    setLangOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleTheme = (id: string) => {
+    setTheme(id);
+    setThemeOpen(false);
+  };
+
+  const handleLang = (code: Lang) => {
+    setLang(code);
+    setLangOpen(false);
   };
 
   const renderPage = () => {
@@ -69,43 +82,43 @@ export default function App() {
     }
   };
 
+  const langLabel = LANGS.find(l => l.code === lang)?.label || 'English';
+
   return (
     <div data-theme={theme} dir={dir} className={`min-h-screen bg-base-100 text-base-content flex flex-col transition-colors duration-300 ${mounted ? '' : 'opacity-0'}`}>
       {/* Navbar */}
       <div className="navbar bg-base-200/80 backdrop-blur-md shadow-lg sticky top-0 z-50 px-4 border-b border-base-300/50">
         <div className="navbar-start">
-          <div className="dropdown">
-            <label
-              tabIndex={0}
+          <div className="relative">
+            <button
               className="btn btn-ghost lg:hidden"
-              onClick={() => setMenuOpen(!menuOpen)}
+              onClick={() => { setMenuOpen(!menuOpen); setThemeOpen(false); setLangOpen(false); }}
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={menuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h8m-8 6h16"} />
               </svg>
-            </label>
+            </button>
             {menuOpen && (
-              <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-3 shadow-xl bg-base-200 rounded-box w-60 border border-base-300 animate-scale-in">
+              <div className="absolute top-full mt-2 z-[100] p-3 shadow-xl bg-base-200 rounded-box w-60 border border-base-300 animate-scale-in">
                 {NAV_ITEMS.map((item) => (
-                  <li key={item.page}>
-                    <a
-                      className={`flex items-center gap-3 py-3 ${page === item.page ? 'active bg-primary text-primary-content' : ''}`}
-                      onClick={() => navigateTo(item.page)}
-                    >
-                      <SvgIcon path={item.svgPath} />
-                      {t(lang, item.labelKey)}
-                    </a>
-                  </li>
+                  <button
+                    key={item.page}
+                    className={`flex items-center gap-3 py-3 px-4 w-full text-left rounded-lg transition-all ${page === item.page ? 'bg-primary text-primary-content' : 'hover:bg-base-300'}`}
+                    onClick={() => navigateTo(item.page)}
+                  >
+                    <SvgIcon path={item.svgPath} />
+                    {t(lang, item.labelKey)}
+                  </button>
                 ))}
-              </ul>
+              </div>
             )}
           </div>
-          <a
+          <button
             className="btn btn-ghost text-lg font-bold cursor-pointer tracking-tight"
             onClick={() => navigateTo('home')}
           >
             {lang === 'en' ? 'Muslim Utilities' : lang === 'ar' ? 'أدوات المسلم' : 'ابزارهای مسلمان'}
-          </a>
+          </button>
         </div>
 
         <div className="navbar-center hidden lg:flex">
@@ -124,45 +137,63 @@ export default function App() {
           </ul>
         </div>
 
-        <div className="navbar-end gap-1">
-          <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn btn-ghost btn-sm gap-1">
+        <div className="navbar-end gap-2">
+          {/* Language Switcher */}
+          <div className="relative">
+            <button
+              onClick={() => { setLangOpen(!langOpen); setThemeOpen(false); setMenuOpen(false); }}
+              className="btn btn-ghost btn-sm gap-1.5"
+            >
               <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <span className="hidden sm:inline text-xs">{t(lang, 'language')}</span>
-            </label>
-            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow-xl bg-base-200 rounded-box w-40 border border-base-300">
-              {LANGS.map((l) => (
-                <li key={l.code}>
-                  <a className={lang === l.code ? 'active' : ''} onClick={() => setLang(l.code)}>
+              <span className="hidden sm:inline text-xs font-semibold">{langLabel}</span>
+            </button>
+            {langOpen && (
+              <div className="absolute right-0 top-full mt-2 z-[100] py-2 w-40 shadow-xl bg-base-200 rounded-xl border border-base-300 animate-scale-in">
+                {LANGS.map((l) => (
+                  <button
+                    key={l.code}
+                    className={`w-full px-4 py-2.5 text-left text-sm font-medium transition-all ${lang === l.code ? 'bg-primary/10 text-primary font-bold' : 'hover:bg-base-300'}`}
+                    onClick={() => handleLang(l.code)}
+                  >
                     {l.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
-          <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn btn-ghost btn-sm gap-1">
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d={THEMES.find(th => th.id === theme)?.icon || THEMES[0].icon} />
-              </svg>
-              <span className="hidden sm:inline text-xs">{t(lang, 'theme')}</span>
-            </label>
-            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow-xl bg-base-200 rounded-box w-44 border border-base-300">
-              {THEMES.map((th) => (
-                <li key={th.id}>
-                  <a className={`flex items-center gap-2 ${theme === th.id ? 'active' : ''}`} onClick={() => setTheme(th.id)}>
-                    <SvgIcon path={th.icon} className="w-4 h-4" />
+          {/* Theme Switcher */}
+          <div className="relative">
+            <button
+              onClick={() => { setThemeOpen(!themeOpen); setLangOpen(false); setMenuOpen(false); }}
+              className="btn btn-ghost btn-sm btn-square"
+            >
+              <SvgIcon path={THEMES.find(th => th.id === theme)?.icon || THEMES[0].icon} className="w-4 h-4" />
+            </button>
+            {themeOpen && (
+              <div className="absolute right-0 top-full mt-2 z-[100] py-2 w-44 shadow-xl bg-base-200 rounded-xl border border-base-300 animate-scale-in">
+                {THEMES.map((th) => (
+                  <button
+                    key={th.id}
+                    className={`w-full px-4 py-2.5 text-left text-sm font-medium transition-all flex items-center gap-2.5 ${theme === th.id ? 'bg-primary/10 text-primary font-bold' : 'hover:bg-base-300'}`}
+                    onClick={() => handleTheme(th.id)}
+                  >
+                    <span className="w-3 h-3 rounded-full" style={{ background: th.color }} />
                     {th.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
+
+      {/* Click outside to close dropdowns */}
+      {(themeOpen || langOpen || menuOpen) && (
+        <div className="fixed inset-0 z-40" onClick={() => { setThemeOpen(false); setLangOpen(false); setMenuOpen(false); }} />
+      )}
 
       {/* Content */}
       <main className="flex-1 pb-20 lg:pb-0">
