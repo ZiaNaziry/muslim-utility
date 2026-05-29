@@ -144,8 +144,10 @@ export default function App() {
               onClick={() => { setLangOpen(!langOpen); setThemeOpen(false); setMenuOpen(false); }}
               className="btn btn-ghost btn-sm gap-1.5"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <circle cx="12" cy="12" r="10" />
+                <line x1="2" y1="12" x2="22" y2="12" />
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
               </svg>
               <span className="hidden sm:inline text-xs font-semibold">{langLabel}</span>
             </button>
@@ -170,7 +172,13 @@ export default function App() {
               onClick={() => { setThemeOpen(!themeOpen); setLangOpen(false); setMenuOpen(false); }}
               className="btn btn-ghost btn-sm btn-square"
             >
-              <SvgIcon path={THEMES.find(th => th.id === theme)?.icon || THEMES[0].icon} className="w-4 h-4" />
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <circle cx="12" cy="12" r="5" />
+                <line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" />
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                <line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" />
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+              </svg>
             </button>
             {themeOpen && (
               <div className="absolute right-0 top-full mt-2 z-[100] py-2 w-44 shadow-xl bg-base-200 rounded-xl border border-base-300 animate-scale-in">
